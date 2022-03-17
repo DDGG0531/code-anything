@@ -3,7 +3,8 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "test": "vitest",
+    "test": "vitest run",
+    "test-watch": "vitest",
     "text-specific-file": "vitest test/sum/sum.test.js",
     "coverage": "vitest run --coverage",
     "prepare": "husky install"

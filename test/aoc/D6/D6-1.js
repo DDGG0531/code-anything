@@ -1,6 +1,6 @@
-import { readFileSync } from "fs";
-let input = readFileSync(path.resolve(__dirname, "./D6.txt"), "utf8");
-let fishes = input.split(",").map(Number);
+import { readFileSync } from 'fs'
+let input = readFileSync(path.resolve(__dirname, './D6.txt'), 'utf8')
+let fishes = input.split(',').map(Number)
 // 一隻魚的生命週期
 // => 8 誕生 + 倒數9天生產
 // => 7
@@ -28,27 +28,27 @@ let fishes = input.split(",").map(Number);
 // 讓每條魚 有自我意識，不用上帝每天指派方向，他們按照預設的方向去行動
 
 class Fish {
-  #newFishBCD;
-  #oldFishBCD;
+  #newFishBCD
+  #oldFishBCD
 
   constructor(originBCD) {
-    this.#newFishBCD = 8;
-    this.#oldFishBCD = 6;
-    this.birthCountDown = originBCD ?? this.#newFishBCD;
+    this.#newFishBCD = 8
+    this.#oldFishBCD = 6
+    this.birthCountDown = originBCD ?? this.#newFishBCD
   }
 
   dayPass() {
-    this.birthCountDown--;
+    this.birthCountDown--
     if (this.birthCountDown < 0) {
-      this.birthCountDown = this.#oldFishBCD;
-      return { hasBaby: true, baby: this.haveABaby() };
+      this.birthCountDown = this.#oldFishBCD
+      return { hasBaby: true, baby: this.haveABaby() }
     } else {
-      return { hasBaby: false, baby: null };
+      return { hasBaby: false, baby: null }
     }
   }
 
   haveABaby() {
-    return new Fish();
+    return new Fish()
   }
 }
 // let fish = new Fish();
@@ -56,20 +56,20 @@ class Fish {
 // console.log("dayPass", fish.dayPass());
 
 // 將第一批魚轉換成機械魚
-let mFishes = fishes.map((fish) => new Fish(fish));
+let mFishes = fishes.map(fish => new Fish(fish))
 
-let day = 1;
-let endDay = 80;
+let day = 1
+let endDay = 80
 
 while (day <= endDay) {
-  let newMFishes = [];
-  mFishes.forEach((mfish) => {
-    let { hasBaby, baby } = mfish.dayPass();
-    hasBaby && newMFishes.push(baby);
-  });
+  let newMFishes = []
+  mFishes.forEach(mfish => {
+    let { hasBaby, baby } = mfish.dayPass()
+    hasBaby && newMFishes.push(baby)
+  })
 
-  mFishes = [...mFishes, ...newMFishes];
-  day++;
+  mFishes = [...mFishes, ...newMFishes]
+  day++
 }
 
-console.log("ans", mFishes.length);
+console.log('ans', mFishes.length)

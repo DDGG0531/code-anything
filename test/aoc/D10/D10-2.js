@@ -1,5 +1,5 @@
 function isPositionSymbol(num) {
-  return num === 91 || num === 40 || num === 123 || num === 60;
+  return num === 91 || num === 40 || num === 123 || num === 60
 }
 
 function isInverseNumber(a, b) {
@@ -13,10 +13,8 @@ function isInverseNumber(a, b) {
     60: 62,
     62: 60
   }
-  return valuemap[a] === b;
+  return valuemap[a] === b
 }
-
-
 
 // 先知道正反向
 // if 正 => push
@@ -25,19 +23,18 @@ function isInverseNumber(a, b) {
 //   if true => pop
 //   else => over return current
 
-
 export default function getAns10_2(newRows) {
-  let eachRowRecord = [];
+  let eachRowRecord = []
 
   for (let p = 0; p < newRows.length; p++) {
-    let row = newRows[p];
-    let records = [];
+    let row = newRows[p]
+    let records = []
 
     for (let i = 0; i < row.length; i++) {
-      let current = newRows[p][i];
-      let last = records[records.length - 1];
+      let current = newRows[p][i]
+      let last = records[records.length - 1]
 
-      let isPositive = isPositionSymbol(current);
+      let isPositive = isPositionSymbol(current)
       if (isPositive) {
         records.push(current)
         continue
@@ -48,16 +45,15 @@ export default function getAns10_2(newRows) {
         records.pop()
         continue
       } else {
-        records = null;
-        break;
+        records = null
+        break
       }
     }
 
     if (records !== null) {
-      let reveresRecord = records.reverse();
-      eachRowRecord.push(reveresRecord);
+      let reveresRecord = records.reverse()
+      eachRowRecord.push(reveresRecord)
     }
-
   }
 
   let eachRowSumRecord = eachRowRecord.map(row => {
@@ -68,18 +64,14 @@ export default function getAns10_2(newRows) {
       60: 4
     }
     return row.reduce((acc, curr) => {
-      return acc * 5 + valueMap[curr];
+      return acc * 5 + valueMap[curr]
     }, 0)
   })
 
-
   // get middile number of an array
   let sortedEachRowSumRecord = eachRowSumRecord.sort((a, b) => a - b)
-  let middle = Math.floor(sortedEachRowSumRecord.length / 2);
-  let ans = sortedEachRowSumRecord[middle];
-
-
-
+  let middle = Math.floor(sortedEachRowSumRecord.length / 2)
+  let ans = sortedEachRowSumRecord[middle]
 
   return ans
 }

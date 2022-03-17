@@ -1,1 +1,1 @@
-export { default } from "./sum.js"
+export { default } from './sum.js'

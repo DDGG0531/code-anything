@@ -1,82 +1,77 @@
 // find adjacent cells in a grid
 // 這個不包含對角線
 function getAdjacent(grid, x, y) {
-  let adjacent = [];
-  if (x > 0) adjacent.push(grid[y][x - 1]);
-  if (x < grid[y].length - 1) adjacent.push(grid[y][x + 1]);
-  if (y > 0) adjacent.push(grid[y - 1][x]);
-  if (y < grid.length - 1) adjacent.push(grid[y + 1][x]);
-  return adjacent;
+  let adjacent = []
+  if (x > 0) adjacent.push(grid[y][x - 1])
+  if (x < grid[y].length - 1) adjacent.push(grid[y][x + 1])
+  if (y > 0) adjacent.push(grid[y - 1][x])
+  if (y < grid.length - 1) adjacent.push(grid[y + 1][x])
+  return adjacent
 }
 
 // find adjacent cells in a grid include diagonal
 // 這個包含對角線
 function getAdjacentIncludeDiagonal(grid, x, y) {
-  let adjacent = [];
-  if (x > 0) adjacent.push(grid[y][x - 1]);
-  if (x < grid[y].length - 1) adjacent.push(grid[y][x + 1]);
-  if (y > 0) adjacent.push(grid[y - 1][x]);
-  if (y < grid.length - 1) adjacent.push(grid[y + 1][x]);
-  if (x > 0 && y > 0) adjacent.push(grid[y - 1][x - 1]);
-  if (x < grid[y].length - 1 && y > 0) adjacent.push(grid[y - 1][x + 1]);
-  if (x > 0 && y < grid.length - 1) adjacent.push(grid[y + 1][x - 1]);
-  if (x < grid[y].length - 1 && y < grid.length - 1) adjacent.push(grid[y + 1][x + 1]);
-  return adjacent;
+  let adjacent = []
+  if (x > 0) adjacent.push(grid[y][x - 1])
+  if (x < grid[y].length - 1) adjacent.push(grid[y][x + 1])
+  if (y > 0) adjacent.push(grid[y - 1][x])
+  if (y < grid.length - 1) adjacent.push(grid[y + 1][x])
+  if (x > 0 && y > 0) adjacent.push(grid[y - 1][x - 1])
+  if (x < grid[y].length - 1 && y > 0) adjacent.push(grid[y - 1][x + 1])
+  if (x > 0 && y < grid.length - 1) adjacent.push(grid[y + 1][x - 1])
+  if (x < grid[y].length - 1 && y < grid.length - 1)
+    adjacent.push(grid[y + 1][x + 1])
+  return adjacent
 }
 
 class octopuse {
-  #flushed;
+  #flushed
 
   constructor(energy) {
-    this.energy = energy;
-    this.#flushed = false;
+    this.energy = energy
+    this.#flushed = false
     this.neighbors = []
   }
 
   get startFlushed() {
-    if (this.#flushed) return false;
-    if (this.energy < 10) return false;
-    this.#flushed = true;
-    return true;
+    if (this.#flushed) return false
+    if (this.energy < 10) return false
+    this.#flushed = true
+    return true
   }
 
   get flushed() {
-    return this.#flushed;
+    return this.#flushed
   }
 
-
-
   addEnergy(energy) {
-    this.energy += energy;
+    this.energy += energy
   }
 
   reset() {
     if (this.#flushed) {
-      this.energy = 0;
+      this.energy = 0
     }
-    this.#flushed = false;
+    this.#flushed = false
   }
-
-
 }
 
 function addNeighborsToOctopuse(octopuseGrid) {
   // loop through octopuseGrid
   octopuseGrid.forEach((row, y) => {
     row.forEach((octopuse, x) => {
-      octopuse.neighbors = getAdjacentIncludeDiagonal(octopuseGrid, x, y);
-    });
-  });
-
+      octopuse.neighbors = getAdjacentIncludeDiagonal(octopuseGrid, x, y)
+    })
+  })
 }
 
 function addEnergyToEveryOctopuses(octopuseGrid) {
   octopuseGrid.forEach((row, y) => {
     row.forEach((octopuse, x) => {
-      octopuse.addEnergy(1);
-    });
-  }
-  );
+      octopuse.addEnergy(1)
+    })
+  })
 }
 
 function findStarFlushedOctopuses(octopuseGrid) {
@@ -86,51 +81,47 @@ function findStarFlushedOctopuses(octopuseGrid) {
 
 function addEnergyToNeighbor(someOctopuses) {
   someOctopuses.forEach(octo => {
-    let neighbors = octo.neighbors;
-    neighbors.forEach(neighbor => neighbor.addEnergy(1));
+    let neighbors = octo.neighbors
+    neighbors.forEach(neighbor => neighbor.addEnergy(1))
   })
 }
 
 function stepOver(octopuseGrid) {
-  let flushedCount = 0;
-  let octopuses = octopuseGrid.flat();
-  let { length } = octopuses;
+  let flushedCount = 0
+  let octopuses = octopuseGrid.flat()
+  let { length } = octopuses
   octopuses.forEach(octo => {
     if (octo.flushed) {
       flushedCount++
       octo.reset()
     }
-  }
-  );
-  return length === flushedCount;
+  })
+  return length === flushedCount
 }
 
-
-
-
 export default function getAns11_2(grid) {
-  let ans = 0;
-  let steps = 0;
-  let octopuseGrid = grid.map(row => row.map(e => new octopuse(e)));
+  let ans = 0
+  let steps = 0
+  let octopuseGrid = grid.map(row => row.map(e => new octopuse(e)))
   // mutate octopuseGrid
-  addNeighborsToOctopuse(octopuseGrid);
+  addNeighborsToOctopuse(octopuseGrid)
 
   // start step
   while (ans === 0) {
-    steps++;
-    addEnergyToEveryOctopuses(octopuseGrid);
-    let someOctopuses = findStarFlushedOctopuses(octopuseGrid);
+    steps++
+    addEnergyToEveryOctopuses(octopuseGrid)
+    let someOctopuses = findStarFlushedOctopuses(octopuseGrid)
 
     while (someOctopuses.length !== 0) {
-      addEnergyToNeighbor(someOctopuses);
-      someOctopuses = findStarFlushedOctopuses(octopuseGrid);
+      addEnergyToNeighbor(someOctopuses)
+      someOctopuses = findStarFlushedOctopuses(octopuseGrid)
     }
 
-    let gotAnswer = stepOver(octopuseGrid);
+    let gotAnswer = stepOver(octopuseGrid)
     if (gotAnswer) {
-      ans = steps;
+      ans = steps
     }
   }
 
-  return ans;
+  return ans
 }

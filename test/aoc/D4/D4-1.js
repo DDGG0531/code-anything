@@ -1,32 +1,32 @@
-import { readFileSync } from "fs";
-let input = readFileSync(path.resolve(__dirname, "./D4.txt"), "utf8");
+import { readFileSync } from 'fs'
+let input = readFileSync(path.resolve(__dirname, './D4.txt'), 'utf8')
 
-let splitWithBreakLine = input.split(/[\r\n]+/g);
+let splitWithBreakLine = input.split(/[\r\n]+/g)
 
-let [markedNumbersWithComma, ...leftArr] = splitWithBreakLine;
+let [markedNumbersWithComma, ...leftArr] = splitWithBreakLine
 
 // 賓果的每個彩球
-let markedNumbers = markedNumbersWithComma.split(",").map(Number);
+let markedNumbers = markedNumbersWithComma.split(',').map(Number)
 
 // 每張棋盤
 let boards = leftArr.reduce((acc, currentValue, currentIndex, array) => {
-  let order = Math.floor(currentIndex / 5);
+  let order = Math.floor(currentIndex / 5)
   // currentValue is '22 13 17 11  0'
   // row => [22, 13, 17, 11, 0]
 
   // get regex of string in string
-  let regex = /\s+/g;
+  let regex = /\s+/g
   let row = currentValue
     .trim()
     .split(regex)
-    .map((value) => ({ value: Number(value), checked: false }));
-  acc[order] ? acc[order].push(...row) : (acc[order] = row);
-  return acc;
-}, []);
+    .map(value => ({ value: Number(value), checked: false }))
+  acc[order] ? acc[order].push(...row) : (acc[order] = row)
+  return acc
+}, [])
 
 // console.log("boards", boards);
 
-let bingo = [];
+let bingo = []
 
 // board
 
@@ -34,9 +34,7 @@ let bingo = [];
 // : return index
 // : mutate board
 function searchIndexFromBoard(board, targetNumber) {
-  return board
-    .map((el) => el.value)
-    .findIndex((value) => targetNumber === value);
+  return board.map(el => el.value).findIndex(value => targetNumber === value)
 }
 
 // 2. 改變該index的checked屬性
@@ -44,16 +42,16 @@ function searchIndexFromBoard(board, targetNumber) {
 // : mutate board
 function muateteChecked(board, targetIndex) {
   if (targetIndex !== -1) {
-    board[targetIndex].checked = true;
+    board[targetIndex].checked = true
     return {
       didMutate: true,
-      mutateIndex: targetIndex,
-    };
+      mutateIndex: targetIndex
+    }
   } else {
     return {
       didMutate: false,
-      mutateIndex: targetIndex,
-    };
+      mutateIndex: targetIndex
+    }
   }
 }
 
@@ -74,45 +72,45 @@ function checkedBingo(board, targetIndex, indexInBoards) {
   // 檢查col: 0,0+n, 0+2n,0+3n,0+4n
 
   if (targetIndex === -1) {
-    return false;
+    return false
   }
 
-  let rowToCheck = []; // 0,2,3
-  let colToCheck = [];
-  let startIndex = targetIndex; // 6
-  let diffColIndex = startIndex % 5;
-  let diffRowIndex = Math.floor(startIndex / 5);
+  let rowToCheck = [] // 0,2,3
+  let colToCheck = []
+  let startIndex = targetIndex // 6
+  let diffColIndex = startIndex % 5
+  let diffRowIndex = Math.floor(startIndex / 5)
   for (let i = 0; i < 5; i++) {
-    let currentRowIndex = startIndex + (i - diffColIndex);
-    rowToCheck.push(currentRowIndex);
-    let currentColIndex = startIndex + (i - diffRowIndex) * 5;
-    colToCheck.push(currentColIndex);
+    let currentRowIndex = startIndex + (i - diffColIndex)
+    rowToCheck.push(currentRowIndex)
+    let currentColIndex = startIndex + (i - diffRowIndex) * 5
+    colToCheck.push(currentColIndex)
   }
 
   let rowAllChecked = board
     .filter((_, index) => rowToCheck.includes(index))
-    .every(({ checked }) => checked);
+    .every(({ checked }) => checked)
   let colAllChecked = board
     .filter((_, index) => colToCheck.includes(index))
-    .every(({ checked }) => checked);
+    .every(({ checked }) => checked)
 
-  let isBingo = rowAllChecked || colAllChecked;
+  let isBingo = rowAllChecked || colAllChecked
 
   if (isBingo) {
-    bingo.push({ board, index: indexInBoards });
-    let value = 0;
-    let mltiValue1 = board[targetIndex].value;
+    bingo.push({ board, index: indexInBoards })
+    let value = 0
+    let mltiValue1 = board[targetIndex].value
     let mltiValue2 = board.reduce((acc, current, index) => {
-      return current.checked ? acc : acc + current.value;
-    }, 0);
+      return current.checked ? acc : acc + current.value
+    }, 0)
 
-    value = mltiValue1 * mltiValue2;
+    value = mltiValue1 * mltiValue2
     // console.log('mltiValue1', mltiValue1)
     // console.log('mltiValue2', mltiValue2)
-    console.log("bingo value", value);
+    console.log('bingo value', value)
   }
 
-  return isBingo;
+  return isBingo
 }
 
 for (let i = 0; i < markedNumbers.length; i++) {
@@ -121,29 +119,29 @@ for (let i = 0; i < markedNumbers.length; i++) {
   //   break; }
 
   if (bingo.length) {
-    let indexInBingo = bingo.map((el) => el.index);
-    console.log("indexInBingo", indexInBingo);
+    let indexInBingo = bingo.map(el => el.index)
+    console.log('indexInBingo', indexInBingo)
     boards = boards.filter((board, index) => {
-      return !indexInBingo.includes(index);
-    });
-    console.log("object", boards.length);
+      return !indexInBingo.includes(index)
+    })
+    console.log('object', boards.length)
     if (boards.length === 0) {
-      console.log("final win", bingo[0]);
-      break;
+      console.log('final win', bingo[0])
+      break
     }
-    bingo = [];
+    bingo = []
   }
 
-  let number = markedNumbers[i];
+  let number = markedNumbers[i]
 
   for (let j = 0; j < boards.length; j++) {
-    let board = boards[j];
-    let index = searchIndexFromBoard(board, number);
+    let board = boards[j]
+    let index = searchIndexFromBoard(board, number)
 
     if (index !== -1) {
-      let { didMutate, mutateIndex } = muateteChecked(board, index);
+      let { didMutate, mutateIndex } = muateteChecked(board, index)
       if (didMutate) {
-        let result = checkedBingo(board, mutateIndex, j);
+        let result = checkedBingo(board, mutateIndex, j)
       }
     }
   }

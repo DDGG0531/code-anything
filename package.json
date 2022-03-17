@@ -1,0 +1,15 @@
+{
+  "name": "code-anything",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "test": "vitest",
+    "text-specific-file": "vitest test/sum/sum.test.js",
+    "coverage": "vitest run --coverage"
+  },
+  "devDependencies": {
+    "typescript": "^4.5.4",
+    "vite": "^2.8.0",
+    "vitest": "^0.7.0"
+  }
+}

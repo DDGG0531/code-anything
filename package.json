@@ -5,13 +5,16 @@
   "scripts": {
     "test": "vitest",
     "text-specific-file": "vitest test/sum/sum.test.js",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.15.0",
     "@typescript-eslint/parser": "^5.15.0",
     "eslint": "^8.11.0",
     "eslint-config-prettier": "^8.5.0",
+    "husky": "^7.0.0",
+    "lint-staged": "^12.3.6",
     "prettier": "2.6.0",
     "typescript": "^4.5.4",
     "vite": "^2.8.0",

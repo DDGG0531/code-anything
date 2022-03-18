@@ -1,5 +1,0 @@
-{
-  "package.json": ["prettier --write"],
-  "*.js": ["npx eslint --fix", "prettier --write"],
-  "*.ts": ["npx eslint --fix", "prettier --write"]
-}

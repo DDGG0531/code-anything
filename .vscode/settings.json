@@ -1,0 +1,14 @@
+{
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode" // 用 vscode套件prettier做美化
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode" // 用 vscode套件prettier做美化
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode" // 用 vscode套件prettier做美化
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true // 保存時，用 vscode套件eslint自動修正錯誤
+  }
+}

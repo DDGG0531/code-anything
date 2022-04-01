@@ -5,7 +5,7 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "Debug Current Test File",
+      "name": "測試我",
       "autoAttachChildProcesses": true,
       "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
       "program": "${workspaceRoot}/node_modules/vitest/vitest.mjs",

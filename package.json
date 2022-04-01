@@ -5,21 +5,21 @@
   "scripts": {
     "test": "vitest run",
     "test-watch": "vitest",
-    "text-specific-file": "vitest test/sum/sum.test.js",
+    "text-specific-file": "vitest test/iBooking_service_time/serviceTime.test.js",
     "coverage": "vitest run --coverage",
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.15.0",
-    "@typescript-eslint/parser": "^5.15.0",
-    "eslint": "^8.11.0",
+    "@typescript-eslint/eslint-plugin": "^5.17.0",
+    "@typescript-eslint/parser": "^5.17.0",
+    "eslint": "^8.12.0",
     "eslint-config-prettier": "^8.5.0",
     "husky": "^7.0.0",
-    "lint-staged": "^12.3.6",
+    "lint-staged": "^12.3.7",
     "prettier": "2.6.0",
-    "typescript": "^4.5.4",
-    "vite": "^2.8.0",
-    "vitest": "^0.7.0"
+    "typescript": "^4.6.3",
+    "vite": "^2.9.1",
+    "vitest": "^0.8.1"
   },
   "lint-staged": {
     "package.json": [
@@ -33,5 +33,8 @@
       "eslint --fix",
       "prettier --write"
     ]
+  },
+  "dependencies": {
+    "lodash-es": "^4.17.21"
   }
 }

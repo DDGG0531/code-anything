@@ -1,0 +1,40 @@
+{
+  "sunday": {
+    "open": true,
+    "times": [
+      {
+        "startMinute": 1260,
+        "endMinute": 1440
+      }
+    ]
+  },
+  "monday": {
+    "open": true,
+    "times": [
+      {
+        "startMinute": 0,
+        "endMinute": 780
+      }
+    ]
+  },
+  "tuesday": {
+    "open": false,
+    "times": []
+  },
+  "wednesday": {
+    "open": false,
+    "times": []
+  },
+  "thursday": {
+    "open": false,
+    "times": []
+  },
+  "friday": {
+    "open": false,
+    "times": []
+  },
+  "saturday": {
+    "open": false,
+    "times": []
+  }
+}
